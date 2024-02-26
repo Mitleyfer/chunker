@@ -1,0 +1,5 @@
+logs_path: "./logs.log"
+url: "https://f001.backblazeb2.com/file/Backblaze-Hard-Drive-Data/data_2013.zip"
+chunk_size: 8
+series_name: 'date'
+max_parallel_workers: 5
