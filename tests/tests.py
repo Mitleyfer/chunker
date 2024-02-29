@@ -47,3 +47,10 @@ def test_chunk_size_bigger_than_df():
         chunks = ch_funcs.chunker(df_test, 200, series_name='dt', max_workers=5)
         unpacked = [*chunks]
         return unpacked
+
+
+def test_chunk_size_less_or_equal_to_zero():
+    with pytest.raises(ValueError, match="Chunk size cannot be zero or negative"):
+        chunks = ch_funcs.chunker(df_test, -1, series_name='dt', max_workers=5)
+        unpacked = [*chunks]
+        return unpacked

@@ -1,11 +1,14 @@
 import logging
 import pandas as pd
-from typing import Iterator
 from functools import partial
 from concurrent import futures
+from typing import Iterator, List, Tuple
 
 
-def calculate_chunk_size(count, chunk_size) -> tuple:
+def calculate_chunk_size(count, chunk_size) -> Tuple:
+    if chunk_size <= 0:
+        logging.error("Chunk size cannot be zero or negative")
+        raise ValueError("Chunk size cannot be zero or negative")
     ch_num = count//chunk_size
     if ch_num == 1:
         logging.error(f"Chunk {chunk_size} is too big for frame of size {count}")
@@ -22,7 +25,7 @@ def calculate_chunk_size(count, chunk_size) -> tuple:
         raise Exception(f"Chunk {chunk_size} is bigger than frame size {count}")
 
 
-def calculate_ranges(size, last_size, ind_max) -> list:
+def calculate_ranges(size, last_size, ind_max) -> List:
     ranges = [{*range(i, i+last_size)} if i+last_size == ind_max else {*range(i, i+size)}
               for i in range(0, ind_max-size, size)]
     return ranges

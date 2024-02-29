@@ -3,6 +3,7 @@ import logging
 import argparse
 import src.reduce_mem as rm
 import src.chunk_funcs as cf
+from typing import List
 from src.get_example_data import get_frame
 
 creds = rm.credentials
@@ -14,7 +15,7 @@ parser.add_argument('--max_workers', type=int, default=creds['max_parallel_worke
 args = parser.parse_args()
 
 
-def run_chunker():
+def run_chunker() -> List:
     try:
         df = get_frame()
         rm.reduce_memory_usage(df)
